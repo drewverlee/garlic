@@ -6,6 +6,7 @@
    [clojure.java.io :as io]
    [datomic.ion.starter :as starter]
    [datomic.ion.starter.edn :as edn]
+   [hiccup.core :as h ]
    [datomic.ion.lambda.api-gateway :as apigw]))
 
 (defn edn-response
@@ -31,3 +32,17 @@
   (apigw/ionize get-items-by-type))
 
 
+
+(defn static-html-page
+  [_]
+  {:status  200
+   :headers {"Content-type" "text/html"}
+   :body    (h/html
+              [:html
+               [:body
+                [:h1 "hello"]]])})
+
+
+
+(def get-static-html-page
+  (apigw/ionize static-html-page))

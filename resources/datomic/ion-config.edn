@@ -1,4 +1,6 @@
 {:lambdas  {:get-items-by-type-lambda-proxy-2021
             {:fn          datomic.ion.starter.http/get-items-by-type-lambda-proxy
-             :description "lambda proxy integration entry point for get-items-by-type"}}
+             :description "lambda proxy integration entry point for get-items-by-type"}
+            :static-page
+            {:fn datomic.ion.starter.http/get-static-html-page}}
  :app-name "grow"}

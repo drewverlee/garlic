@@ -10,3 +10,10 @@ To learn more, watch the video!
 
 [![IMAGE ALT TEXT](https://img.youtube.com/vi/3BRO-Xb32Ic/0.jpg)](http://www.youtube.com/watch?v=3BRO-Xb32Ic "Datomic Ions")
 
+## project specific
+
+how to create a lambda proxy web service. 
+its a rest end point
+https://docs.datomic.com/cloud/ions/ions-tutorial.html#lambda-proxy
+
+clojure -A:ion-dev '{:op :deploy :rev "bc476ade2e0cd3989aa9ced2f655d92e0d12ddc5" :group "grow-compute"}
