@@ -4,5 +4,8 @@
             :static-page
             {:fn datomic.ion.starter.http/get-static-html-page}
             :todos
-            {:fn datomic.ion.starter.http/todos}}
+            {:fn datomic.ion.starter.http/todos}
+            :todo-lambda-handler
+            {:fn datomic.ion.starter.http/todo-lambda-handler}
+            }
  :app-name "grow"}

@@ -55,6 +55,17 @@
   [_]
   (not-found "Page not found"))
 
+
+(def todo-lambda-handler
+  (-> handler
+      (wrap-resource "public")
+      wrap-session
+      wrap-content-type
+      wrap-gzip))
+
+
+
+
 (defn run-server [handler-fn]
   (run-jetty (-> handler-fn
                  (wrap-resource "public")
