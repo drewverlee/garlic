@@ -36,6 +36,8 @@
 (def todos
   (apigw/ionize start/handler))
 
+(def todo-lambda-handler
+  (apigw/ionize start/todo-lambda-handler))
 
 (defn static-html-page
   [_]
