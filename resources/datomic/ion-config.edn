@@ -2,5 +2,7 @@
             {:fn          datomic.ion.starter.http/get-items-by-type-lambda-proxy
              :description "lambda proxy integration entry point for get-items-by-type"}
             :static-page
-            {:fn datomic.ion.starter.http/get-static-html-page}}
+            {:fn datomic.ion.starter.http/get-static-html-page}
+            :todos
+            {:fn datomic.ion.starter.http/todos}}
  :app-name "grow"}

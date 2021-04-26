@@ -3,17 +3,19 @@
 
 (ns datomic.ion.starter.http
   (:require
-   [clojure.java.io :as io]
    [datomic.ion.starter :as starter]
    [datomic.ion.starter.edn :as edn]
-   [hiccup.core :as h ]
+   [rum.core :as rum]
+   [hiccup.core :as h]
+   [datomic.ion.starter.start :as start]
    [datomic.ion.lambda.api-gateway :as apigw]))
+
 
 (defn edn-response
   [body]
-  {:status 200
+  {:status  200
    :headers {"Content-Type" "application/edn"}
-   :body body})
+   :body    body})
 
 (defn get-items-by-type
   "Web handler that returns info about items matching type."
@@ -31,6 +33,8 @@
 (def get-items-by-type-lambda-proxy
   (apigw/ionize get-items-by-type))
 
+(def todos
+  (apigw/ionize start/handler))
 
 
 (defn static-html-page
@@ -40,9 +44,8 @@
    :body    (h/html
               [:html
                [:body
-                [:h1 "hello"]]])})
-
-
+                [:h1 "hello"]]]
+              )})
 
 (def get-static-html-page
   (apigw/ionize static-html-page))
