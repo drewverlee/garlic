@@ -39,6 +39,19 @@
 (def todo-lambda-handler
   (apigw/ionize start/todo-lambda-handler))
 
+
+(comment
+  (start/todo-lambda-handler
+    {:request-method :get
+     :uri            "/"
+     });; => {:status 200,
+;;     :headers {"Content-Type" "text/html"},
+;;     :body
+;;     "<!doctype html>\n<html>\n    <head>\n        <meta charset=\"UTF-8\">\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    </head>\n    <body>\n        <span id=\"app\"><div data-reactroot=\"\"><section id=\"todoapp\"><header id=\"header\"><h1>todos</h1><input type=\"text\" placeholder=\"What needs to be done?\" autoFocus=\"\" value=\"\" class=\"edit\"/></header><section id=\"main\"><ul id=\"todo-list\"></ul></section><footer id=\"footer\"><span id=\"todo-count\"><strong>0</strong> <!-- -->items<!-- --> left</span><ul id=\"filters\"><li><a class=\"selected\">All</a></li><li><a>Active</a></li><li><a>Completed</a></li></ul></footer></section><footer id=\"info\"><p>Double-click to edit a todo</p></footer></div></span>\n        <div style=\"display:none;\" id=\"initial-state\">e30=</div>\n        <script type=\"text/javascript\" src=\"main.js\"></script>\n    </body>\n</html>\n"}
+
+
+  )
+
 (defn static-html-page
   [_]
   {:status  200
