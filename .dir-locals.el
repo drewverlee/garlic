@@ -1,1 +1,4 @@
-((clojure-mode . ((cider-clojure-cli-aliases . "-A:dev:cljs"))))
+((clojure-mode . ((cider-clojure-cli-aliases . "-A:cljs")))
+
+ )
+

@@ -3,3 +3,6 @@
             [datomic.ion.starter.start]))
 
 (st/instrument)
+
+(inc 1)
+

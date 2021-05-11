@@ -84,6 +84,8 @@
      [:what
       [::global ::all-todos all-todos]]}))
 
+
+
 (def components
   (orum/ruleset
     {app-root
@@ -96,7 +98,8 @@
            (todo-input {:initial-text ""
                         :*session     *session})]
           (todo-list *session)
-          (footer *session)]
+          (footer *session)
+          (pomodoro *session)]
          [:footer#info
           [:p "Double-click to edit a todo"]]])]
 
@@ -173,6 +176,14 @@
                         :completed (:done todo))]
             (-> (todo-item {:*session *session :todo todo})
                 (rum/with-key (:id todo))))]])]
+     pomodoro
+     [:what
+      [::global ::all-todos all-todos]
+      :then
+      
+      [:p (-> all-todos first :text)]
+
+      ]
      
      todo-item
      [:then
@@ -198,6 +209,7 @@
               :id           id
               :on-finish    #(reset! *editing false)}))])]}))
 
+
 (def initial-session
   (-> (reduce o/add-rule (o/->session) (concat rules components))
       (o/insert ::global {::all-todos []
@@ -214,5 +226,11 @@
 (swap! *session
        (fn [session]
          (->> (o/query-all session)
+
               (reduce o/insert initial-session)
               o/fire-rules)))
+
+
+(comment
+  (first (o/query-all @*session ::get-all-todos)))
+
