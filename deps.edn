@@ -17,6 +17,7 @@
          com.bhauman/figwheel-main {:mvn/version "0.2.11"}
          cider/piggieback          {:mvn/version "0.5.1"}
          org.clojure/clojurescript {:mvn/version "1.10.764"}
+         
 
          }
  :mvn/repos {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}

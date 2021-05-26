@@ -1,0 +1,6 @@
+{:server-type :ion
+ :region      "us-east-2" 
+ :system      "grow"
+ ;;:aws/creds-profile "<your_aws_profile_if_not_using_the_default>"
+ :endpoint    "http://entry.grow.us-east-2.datomic.net:8182/"
+ :proxy-port  8182}

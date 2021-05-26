@@ -12,7 +12,9 @@
             [clojure.data.codec.base64 :as base64]
             [rum.core :as rum]
             [odoyle.rum :as orum]
-            [datomic.ion.starter.core :as c])
+            [datomic.ion.starter.core :as c]
+            [datomic.client.api :as datomic]
+            [datomic.ion.starter :as ds])
   (:gen-class))
 
 (def port 3000)
@@ -36,6 +38,87 @@
                                              (.getBytes "UTF-8")
                                              base64/encode
                                              (String. "UTF-8"))))))
+
+
+(comment
+  (def cfg (-> "datomic/ion/starter/config.edn" io/resource slurp edn/read-string))
+
+  (def client (datomic/client cfg))
+
+  (datomic/create-database client {:db-name "todos"} )
+
+  (def conn (datomic/connect client {:db-name "todos"}))
+
+
+  (datomic/transact conn {:tx-data [{:db/ident       ::c/text
+                                     :db/valueType   :db.type/string
+                                     :db/cardinality :db.cardinality/one}
+
+                                    {:db/ident       ::c/done
+                                     :db/valueType   :db.type/boolean
+                                     :db/cardinality :db.cardinality/one}
+
+                                    {:db/ident       ::c/todo
+                                     :db/valueType   :db.type/ref
+                                     :db/cardinality :db.cardinality/many}
+
+                                    {:db/ident       ::c/todos
+                                     :db/valueType   :db.type/ref
+                                     :db/cardinality :db.cardinality/many}
+
+                                    {:db/ident       ::c/next-id
+                                     :db/valueType   :db.type/long
+                                     :db/cardinality :db.cardinality/one}
+
+                                    ]})
+
+  {::c/todos [{::c/text "fix everything!" ::c/done false}]}
+
+  (datomic/transact conn {:tx-data [
+                                    {:db/ident       ::c/all-todos
+                                     :db/valueType   :db.type/ref
+                                     :db/cardinality :db.cardinality/many}
+                                    ]})
+
+  (datomic/transact conn {:tx-data
+                          [{:db/id 1 ::c/text "do everything" ::c/done false}
+                           {::c/all-todos [{:db/id 1}]}
+                           ]})
+
+  (def db (datomic/db conn))
+
+  (datomic/pull db '[{::c/all-todos [*]}] 101155069755471)
+
+  ;; => #:datomic.ion.starter.core{:all-todos
+;;                               [{:db/id 1,
+;;                                 :db/ident :db/add,
+;;                                 :db/doc
+;;                                 "Primitive assertion. All transactions eventually reduce to a collection of primitive assertions and retractions of facts, e.g. [:db/add fred :age 42].",
+;;                                 :datomic.ion.starter.core/text "do everything",
+;;                                 :datomic.ion.starter.core/done false}]}
+
+
+
+  ;; => {:db/id 101155069755471,
+;;     :datomic.ion.starter.core/all-todos [#:db{:id 1, :ident :db/add}]}
+
+
+
+  (datomic/q '[:find ?e
+               :where [?e ::c/all-todos ?at]
+               ]
+             db);; => [[101155069755471]]
+
+
+
+
+  (c/insert-all-todos c/initial-session [])
+
+
+
+  )
+
+
 
 (defmulti handler (juxt :request-method :uri))
 

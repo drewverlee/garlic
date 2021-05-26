@@ -64,3 +64,12 @@
 
 (def get-static-html-page
   (apigw/ionize static-html-page))
+
+(comment
+  (static-html-page
+    {:request-method :get :url "/"}
+    );; => {:status 200,
+;;     :headers {"Content-type" "text/html"},
+;;     :body "<html><body><h1>hello</h1></body></html>"}
+
+  )
