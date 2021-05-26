@@ -9,8 +9,6 @@ REBL-*.jar
 .clj-kondo
 .lsp/
 resources/public/main.js
-resources/public/main.out
-figwheel_server.log
 .*
 !.gitignore
 figwheel_server.log
