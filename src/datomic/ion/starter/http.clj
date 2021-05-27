@@ -56,11 +56,7 @@
   [_]
   {:status  200
    :headers {"Content-type" "text/html"}
-   :body    (h/html
-              [:html
-               [:body
-                [:h1 "hello"]]]
-              )})
+   :body    (slurp "resources/public/page.html")})
 
 (def get-static-html-page
   (apigw/ionize static-html-page))
