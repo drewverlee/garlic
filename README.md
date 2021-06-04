@@ -17,3 +17,9 @@ its a rest end point
 https://docs.datomic.com/cloud/ions/ions-tutorial.html#lambda-proxy
 
 clojure -A:ion-dev '{:op :deploy :rev "bc476ade2e0cd3989aa9ced2f655d92e0d12ddc5" :group "grow-compute"}
+
+## Dev setup
+
+* cider-jack-in form deps file.
+* cider-jack-in-cljs from core.clj
+

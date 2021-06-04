@@ -14,7 +14,8 @@
 (defn edn-response
   [body]
   {:status  200
-   :headers {"Content-Type" "application/edn"}
+   :headers {"Content-Type"                "application/edn"
+             "Access-Control-Allow-Origin" "*"}
    :body    body})
 
 (defn get-items-by-type
@@ -32,6 +33,7 @@
 
 (def get-items-by-type-lambda-proxy
   (apigw/ionize get-items-by-type))
+
 
 (def todos
   (apigw/ionize start/handler))
@@ -57,6 +59,8 @@
   {:status  200
    :headers {"Content-type" "text/html"}
    :body    (slurp "resources/public/page.html")})
+
+
 
 (def get-static-html-page
   (apigw/ionize static-html-page))

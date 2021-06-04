@@ -4,5 +4,3 @@
 
 (st/instrument)
 
-(inc 1)
-

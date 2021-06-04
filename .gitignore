@@ -12,3 +12,4 @@ resources/public/main.js
 .*
 !.gitignore
 figwheel_server.log
+resources/public/main.out/*
