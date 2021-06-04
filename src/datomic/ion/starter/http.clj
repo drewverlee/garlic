@@ -10,26 +10,31 @@
    [datomic.ion.starter.start :as start]
    [datomic.ion.lambda.api-gateway :as apigw]))
 
+(def cors-headers {"Access-Control-Allow-Origin"  "*"
+                   "Access-Control-Allow-Methods" "GET, PUT, PATCH, POST, DELETE, OPTIONS"
+                   "Access-Control-Allow-Headers" "Authorization, Content-Type"})
 
 (defn edn-response
   [body]
   {:status  200
-   :headers {"Content-Type"                "application/edn"
-             "Access-Control-Allow-Origin" "*"}
+   :headers (merge cors-headers
+                   {"Content-Type" "application/edn"})
    :body    body})
 
 (defn get-items-by-type
   "Web handler that returns info about items matching type."
   [{:keys [headers body]}]
+  (println "----------------------------BODY: " body)
   (let [type (some-> body edn/read)]
+    
     (if (keyword? type)
       (-> (starter/get-db)
           (starter/get-items-by-type type [:inv/sku :inv/size :inv/color])
           edn/write-str
           edn-response)
-      {:status 400
+      {:status  400
        :headers {}
-       :body "Expected a request body keyword naming a type"})))
+       :body    "Expected a request body keyword naming a type"})))
 
 (def get-items-by-type-lambda-proxy
   (apigw/ionize get-items-by-type))
